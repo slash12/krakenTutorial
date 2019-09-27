@@ -7,28 +7,25 @@ jQuery(document).ready(function(e) {
         var fd = new FormData();
         var qquuid = '_' + Math.random().toString(36).substr(2, 9);
         fd.append('qquuid', qquuid);
-        fd.append('file', fileUri);
-        console.log(file.size);
+        fd.append('qqtotalfilesize', file.size);
+        fd.append('file', file);
+        
 
-        // $.ajax({
-        //     method: "POST",
-        //     url: "https://file.io/",
-        //     headers: {
-        //         'content-type': 'multipart/form-data'
-        //     },
-        //     crossDomain: true,
-        //     dataType: 'text',
-        //     data: {data: file},
-        //     cache: false,
-        //     // async: true,
-        //     processData: false,            
-        //     success: function(data){
-        //         console.log(data);
-        //     },
-        //     error: function(xhr, status) {
-        //         console.log(xhr.responseText);                
-        //     }
-        // })
+        $.ajax({
+            type: "POST",
+            url: "https://file.io/",            
+            contentType: false,
+            dataType: 'text',
+            data: fd,
+            cache: false,            
+            processData: false,            
+            success: function(data){
+                console.log(data);
+            },
+            error: function(xhr, status) {
+                console.log(xhr.responseText);                
+            }
+        })
     });
 
     $('#file').on("change", function() {
