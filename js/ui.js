@@ -1,3 +1,4 @@
+// for the side panel
 const recipes = document.querySelector('.recipes');
 
 document.addEventListener('DOMContentLoaded', function() {

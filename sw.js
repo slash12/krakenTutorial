@@ -1,6 +1,6 @@
 // cache name
-const staticCache = 'site-static-v4 ';
-const dynamicCache = 'site-dynamic-v1';
+const staticCache = 'site-static-v5 ';
+const dynamicCache = 'site-dynamic-v2';
 
 const assets = [
     '/',
@@ -20,8 +20,7 @@ const assets = [
 self.addEventListener('install', evt => {
     // create a new cache and wait untill all caches are cached
     evt.waitUntil(caches.open(staticCache)
-        .then(cache => {
-            console.log('cachine small assets')
+        .then(cache => {            
             // items to cache
             cache.addAll(assets);
         })
@@ -44,7 +43,8 @@ self.addEventListener('activate', evt => {
 
 // fetch event
 self.addEventListener('fetch', evt => {
-    // pause fetch and return our custom event
+    if (evt.request.url.indexOf('firestore.googleapis.com') === -1){
+        // pause fetch and return our custom event
     evt.respondWith(
         caches.match(evt.request)
             .then(
@@ -66,5 +66,6 @@ self.addEventListener('fetch', evt => {
                 }
                     
             )
-    )
+        )
+    }
 });
